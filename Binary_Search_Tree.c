@@ -6,14 +6,10 @@ struct node {
     struct node* right;
 };
 struct node* root = NULL;
-void add()
+void add(int x)
 {
-    for (int i = 0; i < 9; i++)
-    {
-        int x;
         struct node* temp = (struct node*)malloc(sizeof(struct node));
-        printf("Enter the data: ");
-        scanf("%d", &temp->data);
+        temp->data=x;
         temp->left = NULL;
         temp->right = NULL;
         if (root == NULL)
@@ -38,7 +34,6 @@ void add()
             else
                 parent->left = temp;
         }
-    }
 }
 struct node* find_minimum(struct node* root)
 {
@@ -48,62 +43,59 @@ struct node* find_minimum(struct node* root)
     }
     return root;
 }
-struct node* delete(struct node* root, int x)
-{
-    //searching for the item to be deleted
-    if (root == NULL)
-        return NULL;
-    struct node* parent = root;
-    struct node* current = root;
-    if (x != root->data)
-    {
 
-        while (x != root->data)
-        {
-            parent = root;
-            if (x > root->data)
-                root = root->right;
-            else
-                root = root->left;
-        }
-        if (parent->right == root)
-            parent->right = delete(root, x);
-        else
-            parent->left = delete(root, x);
-    }
-    /* else if (x > root->data)
-         root->right = delete(root->right, x);
-     else if (x < root->data)
-         root->left = delete(root->left, x);*/
-    else
+struct node* delete(struct node* head, int x)
+{
+    if (head == NULL)
+        return NULL;
+    struct node* parent ;
+    struct node* current = head;
+     //searching for the item to be deleted
+    if (x != current->data)
     {
-        //No Children
-        if (root->left == NULL && root->right == NULL)
+        while (x != current->data)
         {
-            free(root);
+            parent = current;
+            if (x > current->data)
+                current =current->right;
+            else
+                current = current->left;
+        }
+        if (parent->right == current)
+            parent->right = delete(current, x);
+        else
+            parent->left = delete(current, x);
+    }
+    else  //performing the deletion operation
+    {
+        //NODE HAS NO CHILD
+        if (current->left == NULL && current->right == NULL)
+        {
+            free(current);
             return NULL;
         }
-        //One Child
-        else if (root->left == NULL || root->right == NULL)
+        //NODE HAS ONE CHILD
+        else if (current->left == NULL || current->right == NULL)
         {
             struct node* temp;
-            if (root->left == NULL)
-                temp = root->right;
+            if (current->left == NULL)
+                temp = current->right;
             else
-                temp = root->left;
-            free(root);
+                temp = current->left;
+            free(current);
             return temp;
         }
-        //Two Children
+        //NODE HAS TWO CHILD
         else
         {
-            struct node* temp = find_minimum(root->right);
-            root->data = temp->data;
-            root->right = delete(root->right, temp->data);
+            struct node* temp = find_minimum(current->right);
+            current->data = temp->data;
+            current->right = delete(current->right, temp->data);
         }
     }
-    return current;
+    return head;
 }
+
 int height(struct node* temp)
 {
     int h;
@@ -149,39 +141,56 @@ void postorder_traverse(struct node* current)
 void main()
 {
     printf("***********************Binary Search Tree**********************\n1.Insertion\n2.Delete\n3.Inorder Traverse\n4.Preorder Traverse\n5.Postorder Traverse\n6.Height\n\n");
+   add(24);
+   add(14);
+   add(50);
+   add(18);
+   add(11);
+   add(45);
+   add(70);
+   add(10);
+   add(19);
+   add(15);
+   add(68);
+   add(82);
+    root=delete(root,24);
+    // root=delete(root,11);
+    // root=delete(root,68);
+    // root=delete(root,19);
+    inorder_traverse(root);
 
-    while (1)
-    {
-        int x;
-        printf("Enter the choice: ");
-        scanf("%d", &x);
-        switch (x)
-        {
-        case 1: add();
-            break;
-        case 2:
-        {
-            int x;
-            printf("Enter the number to delete: ");
-            scanf("%d", &x);
-            root = delete(root, x);
-            break;
-        }
-        case 3:inorder_traverse(root);
-            break;
-        case 4:preorder_traverse(root);
-            break;
-        case 5:postorder_traverse(root);
-            break;
-        case 6:
-        {int x = height(root);
-        printf("height=%d\n", x);
-        break;
-        }
+    // while (1)
+    // {
+    //     int x;
+    //     printf("Enter the choice: ");
+    //     scanf("%d", &x);
+    //     switch (x)
+    //     {
+    //     case 1: add();
+    //         break;
+    //     case 2:
+    //     {
+    //         int x;
+    //         printf("Enter the number to delete: ");
+    //         scanf("%d", &x);
+    //         root = delete(root, x);
+    //         break;
+    //     }
+    //     case 3:inorder_traverse(root);
+    //         break;
+    //     case 4:preorder_traverse(root);
+    //         break;
+    //     case 5:postorder_traverse(root);
+    //         break;
+    //     case 6:
+    //     {int x = height(root);
+    //     printf("height=%d\n", x);
+    //     break;
+    //     }
         
-        case 7: printf("Exiting.......\n");
-            exit(1);
-        default:printf("CHOOSE FROM THE GIVEN OPTION...!!!\n");
-        }
-    }
+    //     case 7: printf("Exiting.......\n");
+    //         exit(1);
+    //     default:printf("CHOOSE FROM THE GIVEN OPTION...!!!\n");
+    //     }
+    // }
 }
