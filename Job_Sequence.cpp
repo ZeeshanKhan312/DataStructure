@@ -8,8 +8,8 @@ struct Job{
 void JobSequencing(Job arr[],int n){
     Job temp;
     for(int i=1;i<n;i++){  //SORTING THE JOB STRUCT IN DECREASING ORDER OF PROFIT USING BUBBLE SORT
-        for(int j=0;j<n-1;j++){
-            if(arr[i].profit>arr[j].profit){
+        for(int j=0;j<n-i;j++){
+            if(arr[j].profit<arr[j+1].profit){
                 temp=arr[i];
                 arr[i]=arr[j];
                 arr[j]=temp;
@@ -20,10 +20,10 @@ void JobSequencing(Job arr[],int n){
     char slot[n]={0};
     int maxProfit=0;
     for(int i=0;i<n;i++){
-        while(arr[i].deadline>0){
+        while(arr[i].deadline>0){ 
             if(slot[arr[i].deadline -1]==0){
-                maxProfit+=arr[i].profit; //calculating the max profit
-                slot[arr[i].deadline-1]=arr[i].id;
+                maxProfit+=arr[i].profit; //updating the max profit
+                slot[arr[i].deadline-1]=arr[i].id;  //giving the slot to particular job
                 cout<<"At slot "<<arr[i].deadline-1<<" Job "<<arr[i].id<<" will be done"<<endl;
                 break;
             }
