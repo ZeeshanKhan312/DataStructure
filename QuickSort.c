@@ -7,7 +7,7 @@ int partition(int arr[], int i, int j)
     int temp;
     while (start < end)
     {
-        while (arr[start] <= pivot)
+        while (arr[start] <= pivot)  
         {
             start++;
         }
@@ -39,15 +39,8 @@ void quickSort(int A[], int i, int j)
 }
 void main()
 {
-	int n;
-	printf("Enter the size of array: ");
-	scanf("%d", &n);
-	int arr['n'];
-	for (int i = 0; i < n; i++)//inserting the element
-	{
-		printf("Enter the Number: ");
-		scanf("%d", &arr[i]);
-	}
+    int arr[]={1,17,9,2,4};
+    int n=5;
     quickSort(arr, 0, n - 1);//Quick Sortion
 	printf("Number after sorting:\n");
 	for (int i = 0; i < n; i++)//displaying the element

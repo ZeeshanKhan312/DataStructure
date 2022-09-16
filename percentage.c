@@ -4,7 +4,7 @@ void main()
 	float s1, s2, s3,s4,s5, percent;
 	int n;
 	printf("Enter the Number of Student\n");
-	scanf_s("%d", &n);
+	scanf("%d", &n);
 	printf("\n");
 	for (int i = 1; i <= n; i++)
 	{

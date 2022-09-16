@@ -80,5 +80,5 @@ void main()
         item[i].pr=prf;
     }
    knapsack_f(item,n,W);
-   knapsack_nf(item,n,W); //0-1Knapsack
+//    knapsack_nf(item,n,W); //0-1Knapsack
 }
