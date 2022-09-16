@@ -10,14 +10,19 @@ void JobSequencing(Job arr[],int n){
     for(int i=1;i<n;i++){  //SORTING THE JOB STRUCT IN DECREASING ORDER OF PROFIT USING BUBBLE SORT
         for(int j=0;j<n-i;j++){
             if(arr[j].profit<arr[j+1].profit){
-                temp=arr[i];
-                arr[i]=arr[j];
-                arr[j]=temp;
+                temp=arr[j];
+                arr[j]=arr[j+1];
+                arr[j+1]=temp;
             }
         }
     }
-    
-    char slot[n]={0};
+
+    int max=0;
+    for(int i=0;i<n;i++ ){  //finding the max deadline in arr 
+        if(arr[i].deadline>max)
+          max=arr[i].deadline;
+    }
+    char slot[max]={0};  //creating an array of size max for slot reserving
     int maxProfit=0;
     for(int i=0;i<n;i++){
         while(arr[i].deadline>0){ 
