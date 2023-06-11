@@ -1,9 +1,8 @@
-﻿#include <stdio.h>
-int partition(int arr[], int i, int j)
+#include <stdio.h>
+int partition(int arr[], int start, int end)
 {
-    int pivot = arr[i];
-    int start = i;
-    int end = j;
+    int i=start;
+    int pivot=arr[start];
     int temp;
     while (start < end)
     {
@@ -15,16 +14,16 @@ int partition(int arr[], int i, int j)
         {
             end--;
         }
-        if (start < end)
+        if (start < end)  //swapping the two Number
         {
             temp = arr[start];
             arr[start] = arr[end];
             arr[end] = temp;
         }
     }
-    temp = arr[i];
-    arr[i] = arr[end];
-    arr[end] = temp;
+    //placing the pivot element at right pos. & return it's loc
+    arr[i] = arr[end]; 
+    arr[end] = pivot;
     return end;
 }
 void quickSort(int A[], int i, int j)
@@ -39,7 +38,7 @@ void quickSort(int A[], int i, int j)
 }
 void main()
 {
-    int arr[]={1,17,9,2,4};
+    int arr[]={6,17,9,2,4};
     int n=5;
     quickSort(arr, 0, n - 1);//Quick Sortion
 	printf("Number after sorting:\n");
